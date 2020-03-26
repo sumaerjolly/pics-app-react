@@ -1,9 +1,9 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 const { Provider, Consumer } = React.createContext();
 
 function PicsContextProvider(props) {
-  return <Provider value="">{props.children}</Provider>;
+  const [photos, setPhotos] = useState([]);
+  return <Provider value={{ photos }}>{props.children}</Provider>;
 }
 
 export { PicsContextProvider, Consumer as PicsContextConsumer };
