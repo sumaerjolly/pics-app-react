@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const { Provider, Consumer } = React.createContext();
+const PicsContext = React.createContext();
 
 function PicsContextProvider(props) {
   const [photos, setPhotos] = useState([]);
@@ -12,7 +12,6 @@ function PicsContextProvider(props) {
         'https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json'
       )
       .then(response => {
-        console.log(response);
         setPhotos(response.data);
       })
       .catch(error => {
@@ -20,7 +19,11 @@ function PicsContextProvider(props) {
       });
   }, []);
 
-  return <Provider value={{ photos }}>{props.children}</Provider>;
+  return (
+    <PicsContext.Provider value={{ photos }}>
+      {props.children}
+    </PicsContext.Provider>
+  );
 }
 
-export { PicsContextProvider, Consumer as PicsContextConsumer };
+export { PicsContextProvider, PicsContext };
