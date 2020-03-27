@@ -3,7 +3,7 @@ import { PicsContext } from '../PicsContext';
 import PropTypes from 'prop-types';
 
 function Image({ className, img }) {
-  const { toggleFavourite } = useContext(PicsContext);
+  const { toggleFavourite, addToCart } = useContext(PicsContext);
   const [hovered, setHovered] = useState(false);
   const heartClass = img.isFavorite
     ? 'ri-heart-fill favorite'
@@ -11,7 +11,9 @@ function Image({ className, img }) {
   const heartIcon = hovered && (
     <i onClick={() => toggleFavourite(img.id)} className={heartClass}></i>
   );
-  const cartIcon = hovered && <i className="ri-add-circle-line cart"></i>;
+  const cartIcon = hovered && (
+    <i onClick={() => addToCart(img)} className="ri-add-circle-line cart"></i>
+  );
 
   return (
     <div

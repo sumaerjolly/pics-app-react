@@ -5,6 +5,7 @@ const PicsContext = React.createContext();
 
 function PicsContextProvider(props) {
   const [photos, setPhotos] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     axios
@@ -30,8 +31,15 @@ function PicsContextProvider(props) {
     setPhotos(updatedArr);
   }
 
+  function addToCart(image) {
+    setCartItems(prevState => [...prevState, image]);
+    console.log(cartItems);
+  }
+
   return (
-    <PicsContext.Provider value={{ photos, toggleFavourite }}>
+    <PicsContext.Provider
+      value={{ photos, cartItems, toggleFavourite, addToCart }}
+    >
       {props.children}
     </PicsContext.Provider>
   );
