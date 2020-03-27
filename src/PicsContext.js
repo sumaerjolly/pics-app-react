@@ -33,7 +33,6 @@ function PicsContextProvider(props) {
 
   function addToCart(image) {
     setCartItems(prevState => [...prevState, image]);
-    console.log(cartItems);
   }
 
   return (

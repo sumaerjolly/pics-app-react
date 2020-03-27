@@ -3,17 +3,54 @@ import { PicsContext } from '../PicsContext';
 import PropTypes from 'prop-types';
 
 function Image({ className, img }) {
-  const { toggleFavourite, addToCart } = useContext(PicsContext);
+  const { toggleFavourite, addToCart, cartItems } = useContext(PicsContext);
   const [hovered, setHovered] = useState(false);
-  const heartClass = img.isFavorite
-    ? 'ri-heart-fill favorite'
-    : 'ri-heart-line favorite';
-  const heartIcon = hovered && (
-    <i onClick={() => toggleFavourite(img.id)} className={heartClass}></i>
+  const heartIcon = img.isFavorite ? (
+    <i
+      className="ri-heart-fill favorite"
+      onClick={() => toggleFavourite(img.id)}
+    ></i>
+  ) : (
+    hovered && (
+      <i
+        className="ri-heart-line favorite"
+        onClick={() => toggleFavourite(img.id)}
+      ></i>
+    )
   );
-  const cartIcon = hovered && (
-    <i onClick={() => addToCart(img)} className="ri-add-circle-line cart"></i>
-  );
+
+  // your own method
+  // let found = false;
+  // for (let i = 0; i < cartItems.length; i++) {
+  //   if (cartItems[i].id === img.id) {
+  //     found = true;
+  //     break;
+  //   }
+  // }
+
+  // const cartIcon = found ? (
+  //   <i className="ri-shopping-cart-fill cart"></i>
+  // ) : (
+  //   hovered && (
+  //     <i onClick={() => addToCart(img)} className="ri-add-circle-line cart"></i>
+  //   )
+  // );
+
+  // better method
+
+  function cartIcon() {
+    const alreadyInCart = cartItems.some(item => item.id === img.id);
+    if (alreadyInCart) {
+      return <i className="ri-shopping-cart-fill cart"></i>;
+    } else if (hovered) {
+      return (
+        <i
+          className="ri-add-circle-line cart"
+          onClick={() => addToCart(img)}
+        ></i>
+      );
+    }
+  }
 
   return (
     <div
@@ -27,7 +64,7 @@ function Image({ className, img }) {
     >
       <img src={img.url} alt="" className="image-grid" />
       {heartIcon}
-      {cartIcon}
+      {cartIcon()}
     </div>
   );
 }
