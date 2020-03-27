@@ -19,8 +19,19 @@ function PicsContextProvider(props) {
       });
   }, []);
 
+  function toggleFavourite(id) {
+    const updatedArr = photos.map(photo => {
+      if (photo.id === id) {
+        return { ...photo, isFavorite: !photo.isFavorite };
+      } else {
+        return photo;
+      }
+    });
+    setPhotos(updatedArr);
+  }
+
   return (
-    <PicsContext.Provider value={{ photos }}>
+    <PicsContext.Provider value={{ photos, toggleFavourite }}>
       {props.children}
     </PicsContext.Provider>
   );
