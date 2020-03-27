@@ -40,9 +40,20 @@ function PicsContextProvider(props) {
     setCartItems(updatedCart);
   }
 
+  function emptyCart() {
+    setCartItems([]);
+  }
+
   return (
     <PicsContext.Provider
-      value={{ photos, cartItems, toggleFavourite, addToCart, removeFromCart }}
+      value={{
+        photos,
+        cartItems,
+        toggleFavourite,
+        addToCart,
+        removeFromCart,
+        emptyCart
+      }}
     >
       {props.children}
     </PicsContext.Provider>
