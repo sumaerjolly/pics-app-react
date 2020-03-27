@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { PicsContext } from '../PicsContext';
+import PropTypes from 'prop-types';
 
 function Image({ className, img }) {
   const { toggleFavourite } = useContext(PicsContext);
@@ -28,5 +29,14 @@ function Image({ className, img }) {
     </div>
   );
 }
+
+Image.propTypes = {
+  className: PropTypes.string,
+  img: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool
+  })
+};
 
 export default Image;
