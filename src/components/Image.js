@@ -3,7 +3,9 @@ import { PicsContext } from '../PicsContext';
 import PropTypes from 'prop-types';
 
 function Image({ className, img }) {
-  const { toggleFavourite, addToCart, cartItems } = useContext(PicsContext);
+  const { toggleFavourite, addToCart, cartItems, removeFromCart } = useContext(
+    PicsContext
+  );
   const [hovered, setHovered] = useState(false);
   const heartIcon = img.isFavorite ? (
     <i
@@ -41,7 +43,12 @@ function Image({ className, img }) {
   function cartIcon() {
     const alreadyInCart = cartItems.some(item => item.id === img.id);
     if (alreadyInCart) {
-      return <i className="ri-shopping-cart-fill cart"></i>;
+      return (
+        <i
+          className="ri-shopping-cart-fill cart"
+          onClick={() => removeFromCart(img.id)}
+        ></i>
+      );
     } else if (hovered) {
       return (
         <i

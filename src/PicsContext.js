@@ -35,9 +35,14 @@ function PicsContextProvider(props) {
     setCartItems(prevState => [...prevState, image]);
   }
 
+  function removeFromCart(id) {
+    const updatedCart = cartItems.filter(item => item.id !== id);
+    setCartItems(updatedCart);
+  }
+
   return (
     <PicsContext.Provider
-      value={{ photos, cartItems, toggleFavourite, addToCart }}
+      value={{ photos, cartItems, toggleFavourite, addToCart, removeFromCart }}
     >
       {props.children}
     </PicsContext.Provider>
