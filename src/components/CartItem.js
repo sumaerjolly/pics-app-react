@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { PicsContext } from '../PicsContext';
+import PropTypes from 'prop-types';
 
 function CartItem({ item }) {
   const [hovered, setHovered] = useState(false);
@@ -20,5 +21,11 @@ function CartItem({ item }) {
     </div>
   );
 }
+
+CartItem.propTypes = {
+  item: PropTypes.shape({
+    url: PropTypes.string.isRequired
+  })
+};
 
 export default CartItem;
